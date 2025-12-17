@@ -7,8 +7,7 @@ import './storage-mock';
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState('about');
   const [loading, setLoading] = useState(true);
-  // const [showDataManager, setShowDataManager] = useState(false);
-  
+
   // State for all data
   const [data, setData] = useState({
     personal: null,
@@ -27,13 +26,13 @@ export default function Portfolio() {
     try {
       // Try to load existing data
       const loaded = await loadAllData();
-      
+
       // If no data exists, initialize with default data
       if (!loaded.personal) {
         await saveDefaultData();
         await loadAllData();
       }
-      
+
       setLoading(false);
     } catch (error) {
       console.error('Error initializing data:', error);
@@ -46,7 +45,7 @@ export default function Portfolio() {
 
   const loadAllData = async () => {
     const loaded = {};
-    
+
     try {
       const personalData = await window.storage.get('portfolio:personal');
       loaded.personal = personalData ? JSON.parse(personalData.value) : null;
@@ -88,7 +87,7 @@ export default function Portfolio() {
 
   const saveDefaultData = async () => {
     const defaultData = getDefaultData();
-    
+
     await window.storage.set('portfolio:personal', JSON.stringify(defaultData.personal));
     await window.storage.set('portfolio:skills', JSON.stringify(defaultData.skills));
     await window.storage.set('portfolio:experience', JSON.stringify(defaultData.experience));
@@ -105,47 +104,12 @@ export default function Portfolio() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white pb-24">
       <HeroSection personal={data.personal} />
-      <Navigation activeSection={activeSection} setActiveSection={setActiveSection} />
-      
-      {/* Data Manager Button */}
-      {/* <button
-        onClick={() => setShowDataManager(!showDataManager)}
-        className="fixed bottom-4 right-4 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg z-50 transition-all"
-        title="Manage Portfolio Data"
-      >
-        <Upload size={24} />
-      </button> */}
 
-      {/* Data Manager Panel
-      {showDataManager && (
-        <div className="fixed bottom-20 right-4 bg-slate-800 border border-white/20 rounded-lg p-4 shadow-xl z-50 w-64">
-          <h3 className="text-lg font-bold mb-3">Data Manager</h3>
-          <div className="space-y-2">
-            <button
-              onClick={exportData}
-              className="w-full bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded flex items-center justify-center gap-2 transition-all"
-            >
-              <Download size={16} />
-              Export Data
-            </button>
-            <label className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded flex items-center justify-center gap-2 cursor-pointer transition-all">
-              <Upload size={16} />
-              Import Data
-              <input type="file" accept=".json" onChange={importData} className="hidden" />
-            </label>
-            <button
-              onClick={resetToDefault}
-              className="w-full bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded flex items-center justify-center gap-2 transition-all"
-            >
-              <RefreshCw size={16} />
-              Reset to Default
-            </button>
-          </div>
-        </div>
-      )} */}
-      
+      {/* Floating Bottom Navigation */}
+      <FloatingNavigation activeSection={activeSection} setActiveSection={setActiveSection} />
+
       <div className="max-w-6xl mx-auto px-4 py-16">
         {activeSection === 'about' && <About personal={data.personal} />}
         {activeSection === 'skills' && <Skills skills={data.skills} />}
@@ -159,21 +123,19 @@ export default function Portfolio() {
   );
 }
 
-// Hero Section Component
 function HeroSection({ personal }) {
   if (!personal) return null;
+  
+  console.log('Personal data:', personal); // Add this line
 
   return (
-    // <div className="relative h-screen flex items-center justify-center overflow-hidden">
     <div className="relative py-24 flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent to-slate-900/50"></div>
       <div className="absolute inset-0">
-        {/* <div className="absolute top-20 left-20 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div> */}
-        {/* <div className="absolute bottom-20 right-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse animation-delay-700"></div> */}
         <div className="absolute top-20 left-20 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl"></div>
         <div className="absolute bottom-20 right-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
       </div>
-      
+
       <div className="relative z-10 text-center px-4">
         <div className="mb-6">
           <Cpu className="w-16 h-16 mx-auto mb-4 text-blue-400" />
@@ -182,47 +144,84 @@ function HeroSection({ personal }) {
           {personal.name}
         </h1>
         <p className="text-2xl md:text-3xl text-blue-300 mb-8">{personal.title}</p>
-        <div className="flex flex-wrap justify-center gap-6 mb-8">
-          <a href={`mailto:${personal.email}`} className="flex items-center gap-2 hover:text-blue-400 transition">
-            <Mail size={20} />
-            <span>{personal.email}</span>
+
+        <div className="flex flex-wrap justify-center gap-4 md:gap-6 mb-8 text-base md:text-lg">
+          {/* Email */}
+          <a
+            href={`mailto:${personal.email}`}
+            className="flex items-center gap-2 hover:text-blue-400 transition bg-slate-800/30 px-4 py-2 rounded-lg"
+          >
+            <Mail size={20} className="flex-shrink-0" />
+            <span className="text-white">{personal.email}</span>
           </a>
-          <a href={`tel:${personal.phone}`} className="flex items-center gap-2 hover:text-blue-400 transition">
+
+          {/* USA Phone */}
+          <a
+            href={`tel:${personal.phoneUSA}`}
+            className="flex items-center gap-2 hover:text-blue-400 transition bg-slate-800/30 px-4 py-2 rounded-lg"
+          >
             <Phone size={20} />
-            <span>{personal.phoneDisplay}</span>
+            <div className="flex flex-col">
+              <span className="text-white">{"+1 (303)-472-2116"}</span>
+            </div>
           </a>
-          <span className="flex items-center gap-2">
-            <MapPin size={20} />
-            <span>{personal.location}</span>
+
+          {/* India Phone */}
+          <a
+            href={`tel:${personal.phoneIndia}`}
+            className="flex items-center gap-2 hover:text-blue-400 transition bg-slate-800/30 px-4 py-2 rounded-lg"
+          >
+            <Phone size={20} />
+            <div className="flex flex-col">
+              <span className="text-white">{"+91 9870771576"}</span>
+            </div>
+          </a>
+
+          {/* Location */}
+          <span className="flex items-center gap-2 bg-slate-800/30 px-4 py-2 rounded-lg">
+            <MapPin size={20} className="flex-shrink-0" />
+            <span className="text-white">{personal.location}</span>
           </span>
         </div>
-        {/* <ChevronDown className="w-8 h-8 mx-auto animate-bounce" /> */}
       </div>
     </div>
   );
 }
-
-// Navigation Component
-function Navigation({ activeSection, setActiveSection }) {
-  const sections = ['about', 'skills', 'experience', 'projects', 'education'];
+// Floating Bottom Navigation Component
+function FloatingNavigation({ activeSection, setActiveSection }) {
+  const sections = [
+    { id: 'about', icon: Terminal, label: 'About' },
+    { id: 'skills', icon: Code, label: 'Skills' },
+    { id: 'experience', icon: Briefcase, label: 'Experience' },
+    { id: 'projects', icon: Wifi, label: 'Projects' },
+    { id: 'education', icon: GraduationCap, label: 'Education' }
+  ];
 
   return (
-    <div className="sticky top-0 z-40 bg-slate-900/80 backdrop-blur-md border-b border-white/10">
-      <div className="max-w-6xl mx-auto px-4">
-        <nav className="flex flex-wrap justify-center gap-4 md:gap-8 py-4">
-          {sections.map((section) => (
-            <button
-              key={section}
-              onClick={() => setActiveSection(section)}
-              className={`capitalize text-base md:text-lg font-medium transition ${
-                activeSection === section
-                  ? 'text-blue-400 border-b-2 border-blue-400'
-                  : 'text-gray-300 hover:text-white'
-              }`}
-            >
-              {section}
-            </button>
-          ))}
+    <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50">
+      <div className="bg-slate-800/90 backdrop-blur-lg border border-white/20 rounded-full px-4 py-3 shadow-2xl">
+        <nav className="flex items-center gap-2">
+          {sections.map((section) => {
+            const Icon = section.icon;
+            const isActive = activeSection === section.id;
+
+            return (
+              <button
+                key={section.id}
+                onClick={() => setActiveSection(section.id)}
+                className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300 ${isActive
+                  ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/50'
+                  : 'text-gray-300 hover:bg-slate-700 hover:text-white'
+                  }`}
+                title={section.label}
+              >
+                <Icon size={20} />
+                <span className={`text-sm font-medium ${isActive ? 'block' : 'hidden md:block'}`}>
+                  {section.label}
+                </span>
+              </button>
+            );
+          })}
         </nav>
       </div>
     </div>
@@ -416,8 +415,7 @@ function Education({ education }) {
     </div>
   );
 }
-
-// Footer Component
+// Update the Footer component to display both numbers
 function Footer({ personal }) {
   if (!personal) return null;
 
@@ -425,11 +423,14 @@ function Footer({ personal }) {
     <footer className="bg-slate-900/80 border-t border-white/10 py-8">
       <div className="max-w-6xl mx-auto px-4 text-center">
         <p className="text-gray-400 mb-4">Let's connect and build something amazing together!</p>
-        <div className="flex justify-center gap-6">
+        <div className="flex justify-center gap-6 flex-wrap">
           <a href={`mailto:${personal.email}`} className="hover:text-blue-400 transition" aria-label="Email">
             <Mail size={24} />
           </a>
-          <a href={`tel:${personal.phone}`} className="hover:text-blue-400 transition" aria-label="Phone">
+          <a href={`tel:${personal.phoneUSA}`} className="hover:text-blue-400 transition" aria-label="Phone USA" title="USA">
+            <Phone size={24} />
+          </a>
+          <a href={`tel:${personal.phoneIndia}`} className="hover:text-blue-400 transition" aria-label="Phone India" title="India">
             <Phone size={24} />
           </a>
         </div>
@@ -439,15 +440,17 @@ function Footer({ personal }) {
   );
 }
 
-// Default Data Function
+// Update the getDefaultData function with both phone numbers
 function getDefaultData() {
   return {
     personal: {
       name: "Vrushabh Gada",
       title: "Embedded Systems Engineer",
       email: "gada.vrushabh@gmail.com",
-      phone: "+13034722116",
-      phoneDisplay: "+1 (303) 472-2116",
+      phoneUSA: "+13034722116",
+      phoneUSADisplay: "+1(303)472-2116",
+      phoneIndia: "+919876543210", // Replace with your actual India number
+      phoneIndiaDisplay: "+91 98765 43210", // Replace with your actual India number
       location: "Boulder, USA",
       about: [
         "I'm an Embedded Systems Engineer passionate about IoT, firmware development, and creating innovative hardware-software solutions. Currently pursuing my Professional Master's in Embedded Systems Engineering at the University of Colorado Boulder.",
