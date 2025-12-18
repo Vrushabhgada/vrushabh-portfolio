@@ -585,6 +585,12 @@ function getDefaultData() {
           link: "https://github.com/Vrushabhgada/STM32_2048Game"
         },
         {
+          title: "rpi4b-linux-ota-mender",
+          description: "This project implements an OTA update mechanism for kernel images using the Yocto Project build system. It enables remote kernel updates without physical access to the device, ensuring seamless system maintenance and security patching.",
+          tech: ["Yocto", "Mender", "Linux Kernel"],
+          link: "https://github.com/Vrushabhgada/rpi4b-linux-ota-mender"
+        },
+        {
           title: "Home Automation System",
           period: "June 2021 - May 2022",
           description: "Led a team of 3 to develop an ESP32-based home automation system with MQTT-based communication to a Flutter mobile app. Responsible for firmware development, component selection, and system architecture design.",
