@@ -532,13 +532,38 @@ function getDefaultData() {
     },
     skills: {
       categories: [
-        { title: "Programming Languages", items: ["C", "C++", "Python", "Assembly"] },
+        { title: "Programming Languages", items: ["C", "C++", "Python", "Assembly", "VHDL", "Verilog"] },
         {
           title: "Platforms",
-          items: ["RTOS", "STM32", "Raspberry Pi", "Jetson Nano", "ESP32/ESP8266", "EC200", "MC60"]
+          items: ["STM32", "Raspberry Pi", "Jetson Nano", "ESP32/ESP8266", "EC200", "MC60"]
         },
         { title: "Protocols", items: ["SPI", "I2C", "UART", "MQTT", "HTTP", "BACnet IP", "Infrared"] },
-        { title: "Tools", items: ["Git", "BitBucket", "MongoDB", "SourceTree"] }
+        { title: "Tools", items: ["Git", "BitBucket", "MongoDB", "SourceTree"] },
+        {
+          title: "Concurrency & Parallel Programming",
+          items: [
+            "Multithreaded Programming (C/C++)",
+            "Race Conditions & Deadlock Avoidance",
+            "Mutexes, Semaphores & Spinlocks",
+            "Barriers & Condition Variables",
+            "Memory Consistency Models",
+            "Cache Coherence (MESI)",
+            "Transactional Memory"
+          ]
+        },
+        {
+          title: "Embedded Systems & Operating Systems",
+          items: [
+            "Linux Kernel Development",
+            "Device Drivers",
+            "Kernel Modules",
+            "Yocto",
+            "Buildroot",
+            "Real-Time Operating Systems (RTOS)"
+          ]
+        }
+
+
       ]
     },
     experience: {
@@ -589,6 +614,18 @@ function getDefaultData() {
           description: "This project implements an OTA update mechanism for kernel images using the Yocto Project build system. It enables remote kernel updates without physical access to the device, ensuring seamless system maintenance and security patching.",
           tech: ["Yocto", "Mender", "Linux Kernel"],
           link: "https://github.com/Vrushabhgada/rpi4b-linux-ota-mender"
+        },
+        {
+          title: "Time Synchronome Real-Time System",
+          description: "Time Synchronome is a real-time embedded systems project running on a Raspberry Pi 4 with a Logitech C270 camera that demonstrates precise time-synchronized image capture. The system operates in two modes: capturing one frame per second of an analog clock (1 Hz) or ten frames per second of a digital clock (10 Hz), storing each frame with accurate timestamps in PPM format. It uses a multi-threaded architecture with Rate Monotonic scheduling to ensure non-blurry, uniquely timestamped frames, with an optional feature to store color-inverted versions of captured images",
+          tech: ["Rpi","C","Real Time Systems","Pthreads","Rate Monotonic Scheduling"],
+          link: "https://github.com/Vrushabhgada/Time_synchronome_real_time_system"
+        },
+        {
+          title: "Python mines Game",
+          description: "Python Mines Game is a simple minesweeper-style game built using Python and the Kivy library. The game features a 5x5 grid of 25 tiles, with 3 randomly placed mines hidden among them. Players click on tiles to reveal safe spots while avoiding the mines, creating a classic mine-detection gameplay experience with an intuitive graphical interface powered by Kivy.",
+          tech: ["python","kivy"],
+          link :"https://github.com/Vrushabhgada/Python_mines_Games"
         },
         {
           title: "Home Automation System",
