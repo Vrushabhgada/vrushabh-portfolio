@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Mail, Phone, MapPin, Cpu, Code, Briefcase, GraduationCap, Award, Terminal, BookOpen, Trophy, Linkedin, Palette } from 'lucide-react';
+import { Mail, Phone, MapPin, Cpu, Code, Briefcase, GraduationCap, Award, Terminal, BookOpen, Trophy, Linkedin } from 'lucide-react';
 import './App.css';
 import './storage-mock';
 import { getDefaultData } from './portfolioData';
@@ -25,50 +25,6 @@ const colorSchemes = {
   }
 };
 
-// ==================== THEME SELECTOR COMPONENT ====================
-function ThemeSelector({ currentTheme, onThemeChange }) {
-  const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <div className="fixed bottom-4 right-4 z-50">
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="bg-slate-900/90  text-white p-4 rounded-full  border border-purple-500/40 hover:border-purple-400  duration-300 hover:scale-110"
-        title="Change Theme"
-      >
-        <Palette className="w-6 h-6" />
-      </button>
-
-      {isOpen && (
-        <div className="absolute bottom-16 right-0 bg-slate-900/95  rounded-2xl p-4  border border-purple-500/40 w-72 max-h-96 overflow-y-auto">
-          <h3 className="text-lg font-bold text-purple-300 mb-4">Choose Theme</h3>
-          <div className="space-y-2">
-            {Object.entries(colorSchemes).map(([key, scheme]) => (
-              <button
-                key={key}
-                onClick={() => {
-                  onThemeChange(key);
-                  setIsOpen(false);
-                }}
-                className={`w-full text-left px-4 py-3 rounded-lg  duration-300 ${currentTheme === key
-                  ? 'bg-gradient-to-r ' + scheme.primary + ' text-white shadow-lg'
-                  : 'bg-slate-800/50 text-gray-300 hover:bg-slate-700/50'
-                  }`}
-              >
-                <div className="flex items-center justify-between">
-                  <span className="font-medium">{scheme.name}</span>
-                  {currentTheme === key && (
-                    <span className="text-sm">✓</span>
-                  )}
-                </div>
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
 
 // ==================== COMPONENTS ====================
 function HeroSection({ personal, theme }) {
@@ -659,11 +615,7 @@ export default function PortfolioApp() {
     }
   }, []);
 
-  // Save theme preference when it changes
-  const handleThemeChange = (newTheme) => {
-    setCurrentTheme(newTheme);
-    localStorage.setItem('portfolioTheme', newTheme);
-  };
+
 
   // Scroll spy effect
   useEffect(() => {
@@ -704,7 +656,6 @@ export default function PortfolioApp() {
 
   return (
     <div className={`min-h-screen ${theme.fullappbackground}`}>
-      <ThemeSelector currentTheme={currentTheme} onThemeChange={handleThemeChange} />
       <FloatingNavigation activeSection={activeSection} theme={theme} />
       <HeroSection personal={data.personal} theme={theme} />
       <About personal={data.personal} theme={theme} />
