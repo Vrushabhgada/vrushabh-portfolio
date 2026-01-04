@@ -40,3 +40,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Disable motion globally */
+* {
+  animation: none !important;
+}
+
+/* Smooth color change only */
+.icon-hover {
+  transition: color 0.15s ease-in-out;
+}
