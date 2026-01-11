@@ -91,6 +91,12 @@ export function getDefaultData() {
       portfolio: {
         items: [
           {
+            title: "Environment Sensing System using FPGA",
+            description: "Designed an FPGA-based environment sensing system implementing custom I2C and SPI controllers to interface with temperature, humidity, accelerometer, and light sensors, with real-time data displayed on seven-segment displays.",
+            tech: ["verilog","FPGA"],
+            link: "https://github.com/Vrushabhgada/Environment-Sensing-System-using-FPGA"
+          },
+          {
             title: "2048 Game on STM32",
             description: "Developed a functional 2048 game using the STM32F091RC Nucleo board and ILI9341 LCD, interfaced via SPI. Implemented touch-based swipe gesture controls for game interaction.",
             tech: ["STM32", "SPI", "Embedded C"],
