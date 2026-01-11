@@ -10,11 +10,11 @@ export function getDefaultData() {
         phoneUSA: "+13034722116",
         phoneIndia: "+919870771576",
         location: "Boulder, USA",
-        linkedin: "https://www.linkedin.com/in/vrushabh-gada-477b5416b/",  // Add this
+        linkedin: "https://www.linkedin.com/in/vrushabh-gada-477b5416b/",
         about: [
-          "I'm an Embedded Systems Engineer passionate about IoT, firmware development, and creating innovative hardware-software solutions. Currently pursuing my Professional Master's in Embedded Systems Engineering at the University of Colorado Boulder.",
-          "With over 3 years of experience in embedded development, I've worked on projects ranging from home automation systems to industrial IoT solutions. I specialize in microcontroller programming, wireless communication protocols, and real-time operating systems.",
-          "My expertise spans across multiple platforms including STM32, ESP32, and Raspberry Pi, and I'm proficient in low-level programming languages like C and C++, as well as Python for higher-level applications."
+          "I'm an Embedded Systems Engineer with a passion for building robust IoT solutions and real-time systems. Currently pursuing my Professional Master's in Embedded Systems Engineering at the University of Colorado Boulder, I specialize in firmware development, FPGA design, and creating innovative hardware-software integrations.",
+          "With over 3 years of professional experience, I've led end-to-end development of IoT systems—from AC automation and energy monitoring to smart home solutions using ESP32,and Raspberry Pi platforms. My work spans firmware development, wireless protocols (Zigbee, MQTT), and embedded Linux systems including Yocto, device drivers, and OTA update mechanisms.",
+          "My technical expertise includes low-level programming in C/C++ and Assembly, FPGA development with Verilog/VHDL, and real-time systems design with Rate Monotonic scheduling. I'm experienced in concurrent programming with multithreading, synchronization primitives, and memory consistency models. Beyond embedded development, I've contributed to machine learning research for healthcare applications, with published works on COVID-19 patient classification and disease prediction systems."
         ]
       },
       skills: {
