@@ -156,7 +156,7 @@ export function getDefaultData() {
           {
             degree: "Professional Master's in Embedded Systems Engineering",
             school: "University of Colorado Boulder",
-            period: "2025 - Present",
+            period: "Expected Graduation: May 2026",
             location: "Boulder, USA"
           },
           {
